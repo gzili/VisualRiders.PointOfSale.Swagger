@@ -10,6 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ProductsRepository>();
+builder.Services.AddScoped<PurchasableItemsRepository>();
+builder.Services.AddScoped<ItemCategoriesRepository>();
 
 var app = builder.Build();
 
