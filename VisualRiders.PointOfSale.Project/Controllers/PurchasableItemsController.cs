@@ -46,7 +46,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
                 return NotFound();
             }
 
-            return _purchasableItemsRepository.GetAllByStatus(status);
+            return items;
         }
 
 
