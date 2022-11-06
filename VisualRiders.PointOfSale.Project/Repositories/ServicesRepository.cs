@@ -32,6 +32,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public void Create(Service service)
         {
+            service.Id = Guid.NewGuid();
+
             _services.Add(service);
         }
 
