@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ProductsRepository>();
 builder.Services.AddScoped<PurchasableItemsRepository>();
 builder.Services.AddScoped<ItemCategoriesRepository>();
+builder.Services.AddScoped<CustomersRepository>();
 
 var app = builder.Build();
 
