@@ -14,8 +14,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Purchasable Item 1",
                 Description = "Description 1",
                 Duration = 0,
-                Type = Enums.PurchasableItemType.Type1,
-                ItemStatus = Enums.PurchasableItemStatus.Deleted,
+                Type = PurchasableItemType.Type1,
+                Status = PurchasableItemStatus.Deleted,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             },
@@ -26,8 +26,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Purchasable Item 2",
                 Description = "Description 2",
                 Duration = 0,
-                Type = Enums.PurchasableItemType.Type2,
-                ItemStatus = Enums.PurchasableItemStatus.Active,
+                Type = PurchasableItemType.Type2,
+                Status = PurchasableItemStatus.Active,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             }
@@ -47,7 +47,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public List<PurchasableItem> GetAllByStatus(int itemStatus)
         {
-            return _purchasableItems.FindAll(p => (int)p.ItemStatus == itemStatus);
+            return _purchasableItems.FindAll(p => (int)p.Status == itemStatus);
         }
 
         public PurchasableItem? GetById(Guid id) => _purchasableItems.Find(p => p.Id == id);
@@ -76,11 +76,11 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public void DeleteById(Guid id)
         {
-            var item = _purchasableItems.Find(p => p.Id == id);
+            var index = _purchasableItems.FindIndex(p => p.Id == id);
 
-            if(item != null)
+            if(index != -1)
             {
-                _purchasableItems.Remove(item);
+                _purchasableItems[index].Status = PurchasableItemStatus.Deleted;
             }
         }
     }
