@@ -81,7 +81,10 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         [ProducesResponseType(404)]
         public ActionResult<PurchasableItem> DeleteById(Guid id)
         {
-            if (_servicesRepository.GetById(id) == null)
+
+            var service = _servicesRepository.GetById(id);
+
+            if (service == null || service.Status == Enums.ServiceStatus.Deleted)
             {
                 return NotFound();
             }
