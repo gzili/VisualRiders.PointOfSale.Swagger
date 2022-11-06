@@ -1,4 +1,6 @@
-﻿using VisualRiders.PointOfSale.Project.Models;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Enums;
+using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories
 {
@@ -12,8 +14,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Service 1",
                 Description = "Description 1",
                 Price = 1.0M,
-                Type = Enums.ServiceType.Type2,
-                Status = Enums.ServiceStatus.Deleted,
+                Type = ServiceType.Type2,
+                Status = ServiceStatus.Deleted,
                 DiscountId = Guid.NewGuid(),
                 BranchId = Guid.NewGuid()
             },
@@ -23,18 +25,30 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Service 2",
                 Description = "Description 2",
                 Price = 2.0M,
-                Type = Enums.ServiceType.Type2,
-                Status = Enums.ServiceStatus.Active,
+                Type = ServiceType.Type2,
+                Status = ServiceStatus.Active,
                 DiscountId = Guid.NewGuid(),
                 BranchId = Guid.NewGuid()
             }
         };
 
-        public void Create(Service service)
+        public Service Create(CreateUpdateServiceDto dto)
         {
-            service.Id = Guid.NewGuid();
+            var service = new Service
+            {
+                Id = Guid.NewGuid(),
+                Price = dto.Price,
+                Name = dto.Name,
+                Description = dto.Description,
+                Type = dto.Type,
+                Status = ServiceStatus.Active,
+                DiscountId= Guid.Empty,
+                BranchId = Guid.Empty
+            };
 
             _services.Add(service);
+
+            return service;
         }
 
         public List<Service> GetAll()
@@ -49,14 +63,17 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public Service? GetById(Guid id) => _services.Find(s => s.Id == id);
 
-        public void UpdateItem(Service service)
+        public void Update(Service service, CreateUpdateServiceDto dto)
         {
-            var index = _services.FindIndex(s => s.Id == service.Id);
+            service.Price = dto.Price;
+            service.Name = dto.Name;
+            service.Description = dto.Description;
+            service.Type = dto.Type;
+        }
 
-            if (index != -1)
-            {
-                _services[index] = service;
-            }
+        public void ChangeStatus(Service service, UpdateServiceStatusDto dto)
+        {
+            service.Status = dto.Status;
         }
 
         public void DeleteById(Guid id)

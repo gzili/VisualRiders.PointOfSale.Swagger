@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -18,14 +19,14 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<Service> Create(Service service)
+        public ActionResult<Service> Create(CreateUpdateServiceDto dto)
         {
-            _servicesRepository.Create(service);
+            var service = _servicesRepository.Create(dto);
 
             return CreatedAtAction("GetById", new { id = service.Id }, service);
         }
 
-
+        [HttpGet]
         public List<Service> GetAll()
         {
             return _servicesRepository.GetAll();
@@ -61,18 +62,46 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return service;
         }
 
-        [HttpPut]
+        [HttpPut("{id:guid}")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<PurchasableItem> UpdateService(Service service)
+        public ActionResult<PurchasableItem> UpdateById(Guid id, CreateUpdateServiceDto dto)
         {
+            var service = _servicesRepository.GetById(id);
 
             if (service == null)
             {
                 return NotFound();
             }
 
-            _servicesRepository.UpdateItem(service);
+            _servicesRepository.Update(service, dto);
+
+            return Ok();
+        }
+
+        //public void ChangeDiscount() { }
+        //public void ChangeBranch() { }
+
+        [HttpPut("{id:guid}/status")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<PurchasableItem> ChangeStatus(Guid id, UpdateServiceStatusDto dto)
+        {
+            var service = _servicesRepository.GetById(id);
+
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            _servicesRepository.ChangeStatus(service, dto);
+
             return Ok();
         }
 
