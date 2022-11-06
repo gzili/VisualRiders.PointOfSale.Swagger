@@ -15,7 +15,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Description = "Description 1",
                 Duration = 0,
                 Type = Enums.PurchasableItemType.Type1,
-                ItemStatus = Enums.PurchasableItemStatus.Deleted,
+                Status = Enums.PurchasableItemStatus.Deleted,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             },
@@ -27,7 +27,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Description = "Description 2",
                 Duration = 0,
                 Type = Enums.PurchasableItemType.Type2,
-                ItemStatus = Enums.PurchasableItemStatus.Active,
+                Status = Enums.PurchasableItemStatus.Active,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             }
@@ -47,7 +47,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public List<PurchasableItem> GetAllByStatus(int itemStatus)
         {
-            return _purchasableItems.FindAll(p => (int)p.ItemStatus == itemStatus);
+            return _purchasableItems.FindAll(p => (int)p.Status == itemStatus);
         }
 
         public PurchasableItem? GetById(Guid id) => _purchasableItems.Find(p => p.Id == id);
