@@ -14,8 +14,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Purchasable Item 1",
                 Description = "Description 1",
                 Duration = 0,
-                Type = Enums.PurchasableItemType.Type1,
-                Status = Enums.PurchasableItemStatus.Deleted,
+                Type = PurchasableItemType.Type1,
+                Status = PurchasableItemStatus.Deleted,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             },
@@ -26,8 +26,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Purchasable Item 2",
                 Description = "Description 2",
                 Duration = 0,
-                Type = Enums.PurchasableItemType.Type2,
-                Status = Enums.PurchasableItemStatus.Active,
+                Type = PurchasableItemType.Type2,
+                Status = PurchasableItemStatus.Active,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             }
@@ -80,7 +80,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
             if(index != -1)
             {
-                _purchasableItems[index].Status = Enums.PurchasableItemStatus.Deleted;
+                _purchasableItems[index].Status = PurchasableItemStatus.Deleted;
             }
         }
     }

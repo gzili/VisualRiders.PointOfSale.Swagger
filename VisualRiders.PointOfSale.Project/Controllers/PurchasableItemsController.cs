@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VisualRiders.PointOfSale.Project.DTOs;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -18,7 +18,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
 
         [HttpPost]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<PurchasableItem> Create(PurchasableItem purchasableItem)
         {
             _purchasableItemsRepository.Create(purchasableItem);
@@ -35,8 +35,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
 
         [HttpGet("{status:int}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<PurchasableItem>> GetAllByStatus(int status)
         {
             var items = _purchasableItemsRepository.GetAllByStatus(status);
@@ -51,8 +51,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> GetById(Guid id)
         {
             var purchasableItem = _purchasableItemsRepository.GetById(id);
@@ -66,9 +66,9 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public ActionResult<PurchasableItem> UpdateItem(PurchasableItem purchasableItem)
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<PurchasableItem> UpdateById(PurchasableItem purchasableItem)
         {
            
             if (purchasableItem == null)
@@ -82,9 +82,9 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
 
         [HttpPut("{id:guid}/category")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(400)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<PurchasableItem> AddCategory(Guid id, UpdateProductCategoryDto categoryDto)
         {
             if(_purchasableItemsRepository.GetById(id) == null)
@@ -103,13 +103,13 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> DeleteById(Guid id)
         {
             var item = _purchasableItemsRepository.GetById(id);
 
-            if( item== null || item.Status == Enums.PurchasableItemStatus.Deleted)
+            if( item == null || item.Status == Enums.PurchasableItemStatus.Deleted)
             {
                 return NotFound();
             }
