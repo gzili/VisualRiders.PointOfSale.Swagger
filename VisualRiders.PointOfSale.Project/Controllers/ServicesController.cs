@@ -25,7 +25,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return CreatedAtAction("GetById", new { id = service.Id }, service);
         }
 
-
+        [HttpGet]
         public List<Service> GetAll()
         {
             return _servicesRepository.GetAll();
