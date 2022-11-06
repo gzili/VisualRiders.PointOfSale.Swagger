@@ -17,7 +17,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<Service> Create(Service service)
         {
             _servicesRepository.Create(service);
@@ -32,8 +32,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpGet("{status:int}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Service>> GetAllByStatus(int status)
         {
             var services = _servicesRepository.GetAllByStatus(status);
@@ -47,8 +47,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Service> GetById(Guid id)
         {
             var service = _servicesRepository.GetById(id);
@@ -62,8 +62,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> UpdateService(Service service)
         {
 
@@ -77,8 +77,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> DeleteById(Guid id)
         {
 
