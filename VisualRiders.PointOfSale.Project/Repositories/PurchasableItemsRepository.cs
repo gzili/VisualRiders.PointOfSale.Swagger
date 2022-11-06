@@ -76,11 +76,11 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public void DeleteById(Guid id)
         {
-            var item = _purchasableItems.Find(p => p.Id == id);
+            var index = _purchasableItems.FindIndex(p => p.Id == id);
 
-            if(item != null)
+            if(index != -1)
             {
-                _purchasableItems.Remove(item);
+                _purchasableItems[index].Status = Enums.PurchasableItemStatus.Deleted;
             }
         }
     }
