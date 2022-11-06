@@ -74,16 +74,14 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             item.Duration = dto.Duration;
         }
 
-        public void AddCathegory(Guid itemId, Guid categoryId)
+        public void ChangeCategory(PurchasableItem item, UpdatePurchasableItemCategoryDto dto)
         {
-            var item = _purchasableItems.Find(p => p.Id == itemId);
+            item.ItemCathegoryId = dto.CategoryId;
+        }
 
-
-            if(item != null)
-            {
-                item.ItemCathegoryId = categoryId;
-            }
-            
+        public void ChangeStatus(PurchasableItem item, UpdatePurchasableItemStatusDto dto)
+        {
+            item.Status = dto.Status;
         }
 
         public void DeleteById(Guid id)
