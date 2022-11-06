@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ProductsRepository>();
+builder.Services.AddScoped<EmployeesRepository>();
 
 var app = builder.Build();
 
