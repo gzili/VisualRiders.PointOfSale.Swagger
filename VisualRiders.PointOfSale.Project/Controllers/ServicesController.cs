@@ -108,7 +108,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<PurchasableItem> DeleteById(Guid id)
+        public IActionResult DeleteById(Guid id)
         {
 
             var service = _servicesRepository.GetById(id);
