@@ -1,4 +1,5 @@
-﻿using VisualRiders.PointOfSale.Project.Enums;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories
@@ -33,11 +34,24 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             }
         };
 
-        public void Create(PurchasableItem item)
+        public PurchasableItem Create(CreateUpdatePurchasableItemDto dto)
         {
-            item.Id = Guid.NewGuid();
+            var item = new PurchasableItem
+            {
+                Id = Guid.NewGuid(),
+                Price = dto.Price,
+                Name = dto.Name,
+                Description = dto.Description,
+                Duration = dto.Duration,
+                Type = dto.Type,
+                Status = PurchasableItemStatus.Active,
+                ItemCathegoryId = Guid.Empty,
+                DiscountId = Guid.Empty
+            };
 
             _purchasableItems.Add(item);
+
+            return item;
         }
 
         public List<PurchasableItem> GetAll()
@@ -52,14 +66,12 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public PurchasableItem? GetById(Guid id) => _purchasableItems.Find(p => p.Id == id);
 
-        public void UpdateItem(PurchasableItem purchasableItem)
+        public void Update(PurchasableItem item, CreateUpdatePurchasableItemDto dto)
         {
-            var index = _purchasableItems.FindIndex(p => p.Id == purchasableItem.Id);
-
-            if (index != -1)
-            {
-                _purchasableItems[index] = purchasableItem;
-            }
+            item.Price = dto.Price;
+            item.Name = dto.Name;
+            item.Description = dto.Description;
+            item.Duration = dto.Duration;
         }
 
         public void AddCathegory(Guid itemId, Guid categoryId)

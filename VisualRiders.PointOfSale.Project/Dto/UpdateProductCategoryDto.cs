@@ -1,6 +1,6 @@
 ﻿namespace VisualRiders.PointOfSale.Project.Dto
 {
-    public class UpdateProductCategoryDto
+    public class UpdatePurchasableItemCategoryDto
     {
         public Guid CategoryId { get; set; }
     }
