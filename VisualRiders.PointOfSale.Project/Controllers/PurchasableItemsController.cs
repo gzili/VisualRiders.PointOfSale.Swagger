@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VisualRiders.PointOfSale.Project.DTOs;
+using System.Runtime.CompilerServices;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -18,12 +19,12 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
 
         [HttpPost]
-        [ProducesResponseType(201)]
-        public ActionResult<PurchasableItem> Create(PurchasableItem purchasableItem)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public ActionResult<PurchasableItem> Create(CreateUpdatePurchasableItemDto dto)
         {
-            _purchasableItemsRepository.Create(purchasableItem);
+            var item = _purchasableItemsRepository.Create(dto);
 
-            return CreatedAtAction("GetById", new { id = purchasableItem.Id }, purchasableItem);
+            return CreatedAtAction("GetById", new { id = item.Id }, item);
         }
 
 
@@ -35,8 +36,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
 
         [HttpGet("{status:int}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<PurchasableItem>> GetAllByStatus(int status)
         {
             var items = _purchasableItemsRepository.GetAllByStatus(status);
@@ -46,18 +47,18 @@ namespace VisualRiders.PointOfSale.Project.Controllers
                 return NotFound();
             }
 
-            return _purchasableItemsRepository.GetAllByStatus(status);
+            return items;
         }
 
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> GetById(Guid id)
         {
             var purchasableItem = _purchasableItemsRepository.GetById(id);
 
-            if(purchasableItem == null)
+            if (purchasableItem == null)
             {
                 return NotFound();
             }
@@ -65,29 +66,32 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return purchasableItem;
         }
 
-        [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public ActionResult<PurchasableItem> UpdateItem(PurchasableItem purchasableItem)
+        [HttpPut("{id:guid}")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<PurchasableItem> UpdateById(Guid id, CreateUpdatePurchasableItemDto dto)
         {
+            var purchasableItem = _purchasableItemsRepository.GetById(id);
            
             if (purchasableItem == null)
             {
                 return NotFound();
             }
 
-            _purchasableItemsRepository.UpdateItem(purchasableItem);
-            return Ok();
+            _purchasableItemsRepository.Update(purchasableItem, dto);
+            return purchasableItem;
         }
 
 
         [HttpPut("{id:guid}/category")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(400)]
-        public ActionResult<PurchasableItem> AddCategory(Guid id, UpdateProductCategoryDto categoryDto)
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<PurchasableItem> ChangeCategory(Guid id, UpdatePurchasableItemCategoryDto categoryDto)
         {
-            if(_purchasableItemsRepository.GetById(id) == null)
+            var purchasableItem = _purchasableItemsRepository.GetById(id);
+
+            if (purchasableItem == null)
             {
                 return NotFound();
             }
@@ -97,17 +101,44 @@ namespace VisualRiders.PointOfSale.Project.Controllers
                 return BadRequest();
             }
 
-            _purchasableItemsRepository.AddCathegory(id, categoryDto.CategoryId);
+            _purchasableItemsRepository.ChangeCategory(purchasableItem, categoryDto);
 
             return Ok();
         }
 
+        [HttpPut("{id:guid}/status")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<PurchasableItem> ChangeStatus(Guid id, UpdatePurchasableItemStatusDto dto)
+        {
+            var purchasableItem = _purchasableItemsRepository.GetById(id);
+
+            if ( purchasableItem == null)
+            {
+                return NotFound();
+            }
+
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            _purchasableItemsRepository.ChangeStatus(purchasableItem, dto);
+
+            return Ok();
+        }
+
+
+
         [HttpDelete("{id:guid}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> DeleteById(Guid id)
         {
-            if(_purchasableItemsRepository.GetById(id) == null)
+            var item = _purchasableItemsRepository.GetById(id);
+
+            if( item == null || item.Status == Enums.PurchasableItemStatus.Deleted)
             {
                 return NotFound();
             }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -16,10 +17,10 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(201)]
-    public ActionResult<Product> Create(Product product)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public ActionResult<Product> Create(CreateUpdateProductDto dto)
     {
-        _productsRepository.Create(product);
+        var product = _productsRepository.Create(dto);
         
         return CreatedAtAction("GetById", new { id = product.Id }, product);
     }
@@ -31,8 +32,8 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
+    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Product> GetById(Guid id)
     {
         var product = _productsRepository.GetById(id);
@@ -44,10 +45,38 @@ public class ProductsController : ControllerBase
 
         return product;
     }
-    
+
     [HttpPut("{id:guid}")]
-    public void UpdateById(string id) {}
-    
+    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<Product> UpdateById(Guid id, CreateUpdateProductDto dto)
+    {
+        var product = _productsRepository.GetById(id);
+
+        if (product == null)
+        {
+            return NotFound();
+        }
+        
+        _productsRepository.Update(product, dto);
+
+        return product;
+    }
+
     [HttpDelete("{id:guid}")]
-    public void DeleteById(string id) {}
+    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult DeleteById(Guid id)
+    {
+        var product = _productsRepository.GetById(id);
+        
+        if (product == null)
+        {
+            return NotFound();
+        }
+        
+        _productsRepository.Remove(product);
+
+        return Ok();
+    }
 }

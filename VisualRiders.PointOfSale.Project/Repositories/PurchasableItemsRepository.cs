@@ -1,4 +1,5 @@
-﻿using VisualRiders.PointOfSale.Project.Enums;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories
@@ -14,8 +15,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Purchasable Item 1",
                 Description = "Description 1",
                 Duration = 0,
-                Type = Enums.PurchasableItemType.Type1,
-                ItemStatus = Enums.PurchasableItemStatus.Deleted,
+                Type = PurchasableItemType.Type1,
+                Status = PurchasableItemStatus.Deleted,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             },
@@ -26,18 +27,31 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Purchasable Item 2",
                 Description = "Description 2",
                 Duration = 0,
-                Type = Enums.PurchasableItemType.Type2,
-                ItemStatus = Enums.PurchasableItemStatus.Active,
+                Type = PurchasableItemType.Type2,
+                Status = PurchasableItemStatus.Active,
                 ItemCathegoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             }
         };
 
-        public void Create(PurchasableItem item)
+        public PurchasableItem Create(CreateUpdatePurchasableItemDto dto)
         {
-            item.Id = Guid.NewGuid();
+            var item = new PurchasableItem
+            {
+                Id = Guid.NewGuid(),
+                Price = dto.Price,
+                Name = dto.Name,
+                Description = dto.Description,
+                Duration = dto.Duration,
+                Type = dto.Type,
+                Status = PurchasableItemStatus.Active,
+                ItemCathegoryId = Guid.Empty,
+                DiscountId = Guid.Empty
+            };
 
             _purchasableItems.Add(item);
+
+            return item;
         }
 
         public List<PurchasableItem> GetAll()
@@ -47,40 +61,36 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public List<PurchasableItem> GetAllByStatus(int itemStatus)
         {
-            return _purchasableItems.FindAll(p => (int)p.ItemStatus == itemStatus);
+            return _purchasableItems.FindAll(p => (int)p.Status == itemStatus);
         }
 
         public PurchasableItem? GetById(Guid id) => _purchasableItems.Find(p => p.Id == id);
 
-        public void UpdateItem(PurchasableItem purchasableItem)
+        public void Update(PurchasableItem item, CreateUpdatePurchasableItemDto dto)
         {
-            var index = _purchasableItems.FindIndex(p => p.Id == purchasableItem.Id);
-
-            if (index != -1)
-            {
-                _purchasableItems[index] = purchasableItem;
-            }
+            item.Price = dto.Price;
+            item.Name = dto.Name;
+            item.Description = dto.Description;
+            item.Duration = dto.Duration;
         }
 
-        public void AddCathegory(Guid itemId, Guid categoryId)
+        public void ChangeCategory(PurchasableItem item, UpdatePurchasableItemCategoryDto dto)
         {
-            var item = _purchasableItems.Find(p => p.Id == itemId);
+            item.ItemCathegoryId = dto.CategoryId;
+        }
 
-
-            if(item != null)
-            {
-                item.ItemCathegoryId = categoryId;
-            }
-            
+        public void ChangeStatus(PurchasableItem item, UpdatePurchasableItemStatusDto dto)
+        {
+            item.Status = dto.Status;
         }
 
         public void DeleteById(Guid id)
         {
-            var item = _purchasableItems.Find(p => p.Id == id);
+            var index = _purchasableItems.FindIndex(p => p.Id == id);
 
-            if(item != null)
+            if(index != -1)
             {
-                _purchasableItems.Remove(item);
+                _purchasableItems[index].Status = PurchasableItemStatus.Deleted;
             }
         }
     }
