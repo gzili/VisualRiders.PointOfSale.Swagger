@@ -1,8 +1,10 @@
+using VisualRiders.PointOfSale.Project.Models;
+
 namespace VisualRiders.PointOfSale.Project.Dto;
 
 public class UpdateBranchWorkingHoursDto
 {
-    public TimeSpan WorkingHourStart { get; set; }
+    public Time WorkingHourStart { get; set; }
     
-    public TimeSpan WorkingHourEnd { get; set; }
+    public Time WorkingHourEnd { get; set; }
 }

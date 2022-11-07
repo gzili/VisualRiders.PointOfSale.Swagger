@@ -15,8 +15,8 @@ public class BranchesRepository
             CompanyId = Guid.NewGuid(),
             Contacts = "email@domain.com",
             WorkingDays = WorkingDays.Monday | WorkingDays.Friday,
-            WorkingHourEnd = new TimeSpan(8,0,0),
-            WorkingHourStart = new TimeSpan(17,30,0)
+            WorkingHourEnd = new Time{ Hours = 8, Minutes = 0 },
+            WorkingHourStart = new Time{ Hours = 17, Minutes = 30 },
         },
         new Branch {
             Id = Guid.NewGuid(),
@@ -25,8 +25,8 @@ public class BranchesRepository
             CompanyId = Guid.NewGuid(),
             Contacts = "email2@domain.com",
             WorkingDays = WorkingDays.Monday | WorkingDays.Friday,
-            WorkingHourEnd = new TimeSpan(8,0,0),
-            WorkingHourStart = new TimeSpan(18,0,0)
+            WorkingHourEnd = new Time{ Hours = 8, Minutes = 0 },
+            WorkingHourStart = new Time{ Hours = 17, Minutes = 0 },
         }
     };
     public Branch Create(CreateUpdateBranchDto dto)

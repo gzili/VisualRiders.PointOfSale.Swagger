@@ -1,4 +1,5 @@
 using VisualRiders.PointOfSale.Project.Enums;
+using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Dto;
 
@@ -6,9 +7,9 @@ public class CreateUpdateBranchDto
 {
     public string Address { get; set; }
     
-    public TimeSpan WorkingHourStart { get; set; }
+    public Time WorkingHourStart { get; set; }
     
-    public TimeSpan WorkingHourEnd { get; set; }
+    public Time WorkingHourEnd { get; set; }
     
     public WorkingDays WorkingDays { get; set; }
     
