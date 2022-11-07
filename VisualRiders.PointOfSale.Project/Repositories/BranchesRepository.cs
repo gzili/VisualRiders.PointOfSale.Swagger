@@ -6,37 +6,18 @@ namespace VisualRiders.PointOfSale.Project.Repositories;
 
 public class BranchesRepository
 {
-    private static readonly List<Branch> _branches = new()
-    {
-        new Branch {
-            Id = Guid.NewGuid(),
-            Address = "Address",
-            BranchStatus = BranchStatus.Active,
-            CompanyId = Guid.NewGuid(),
-            Contacts = "email@domain.com",
-            WorkingDays = WorkingDays.Monday | WorkingDays.Friday,
-            WorkingHourEnd = new Time{ Hours = 8, Minutes = 0 },
-            WorkingHourStart = new Time{ Hours = 17, Minutes = 30 },
-        },
-        new Branch {
-            Id = Guid.NewGuid(),
-            Address = "Address2",
-            BranchStatus = BranchStatus.Active,
-            CompanyId = Guid.NewGuid(),
-            Contacts = "email2@domain.com",
-            WorkingDays = WorkingDays.Monday | WorkingDays.Friday,
-            WorkingHourEnd = new Time{ Hours = 8, Minutes = 0 },
-            WorkingHourStart = new Time{ Hours = 17, Minutes = 0 },
-        }
-    };
+    private static readonly List<Branch> _branches = Data.Branches;
+    private static readonly List<Company> _companies = Data.Companies;
     public Branch Create(CreateUpdateBranchDto dto)
     {
+        var company = _companies.Find(c => c.Id == dto.CompanyId);
+        
         var branch = new Branch
         {
             Id = Guid.NewGuid(),
             Address = dto.Address,
             BranchStatus = dto.BranchStatus,
-            CompanyId = dto.CompanyId,
+            Company = company,
             Contacts = dto.Contacts,
             WorkingDays = dto.WorkingDays,
             WorkingHourEnd = dto.WorkingHourEnd,
@@ -59,10 +40,12 @@ public class BranchesRepository
 
     public void Update(Branch branch, CreateUpdateBranchDto dto)
     {
+        var company = _companies.Find(c => c.Id == dto.CompanyId);
+        
         branch.Address = dto.Address;
         branch.Contacts = dto.Contacts;
         branch.BranchStatus = dto.BranchStatus;
-        branch.CompanyId = dto.CompanyId;
+        branch.Company = company;
         branch.WorkingDays = dto.WorkingDays;
         branch.WorkingHourStart = dto.WorkingHourStart;
         branch.WorkingHourEnd = dto.WorkingHourEnd;
