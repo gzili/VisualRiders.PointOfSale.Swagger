@@ -10,7 +10,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             {
                 Id = Guid.NewGuid(),
                 Amount = 10,
-                DiscountMeasure = DiscountMeasureType.Percentage,
+                Measure = DiscountMeasure.Percentage,
                 Code = "Free10",
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now + TimeSpan.FromDays(7)
@@ -19,7 +19,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             {
                 Id = Guid.NewGuid(),
                 Amount = 5,
-                DiscountMeasure = DiscountMeasureType.Absolute,
+                Measure = DiscountMeasure.Absolute,
                 Code = "5Bucks",
                 StartDate = DateTime.Now - TimeSpan.FromDays(3),
                 EndDate = DateTime.Now + TimeSpan.FromDays(7)
@@ -40,7 +40,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public Discount? GetById(Guid id) => _discounts.Find(p => p.Id == id);
 
-        internal void Update(Discount discount)
+        public void Update(Discount discount)
         {
             for (int i = 0; i < _discounts.Count; i++)
             {
@@ -49,7 +49,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             }
         }
 
-        internal void Delete(Discount discount)
+        public void Delete(Discount discount)
         {
             _discounts.Remove(discount);
         }

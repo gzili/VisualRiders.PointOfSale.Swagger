@@ -16,7 +16,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<Discount> Create(Discount discount)
         {
             _discountsRepository.Create(discount);
@@ -31,8 +31,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Discount> GetById(Guid id)
         {
             var discount = _discountsRepository.GetById(id);
@@ -46,13 +46,31 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public void UpdateById(Discount discount) {
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Discount> UpdateById(Guid id, Discount newDiscount) {
+            var discount = _discountsRepository.GetById(id);
+
+            if (discount == null)
+            {
+                return NotFound();
+            }
             _discountsRepository.Update(discount);
+            return discount;
         }
 
         [HttpDelete("{id:guid}")]
-        public void DeleteById(Discount discount) {
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult DeleteById(Guid id) {
+            var discount = _discountsRepository.GetById(id);
+
+            if (discount == null)
+            {
+                return NotFound();
+            }
             _discountsRepository.Delete(discount);
+            return Ok();
         }
     }
 }
