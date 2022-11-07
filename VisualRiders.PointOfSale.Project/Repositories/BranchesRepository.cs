@@ -54,11 +54,6 @@ public class BranchesRepository
 
     public Branch? GetById(Guid id)
     {
-        foreach (var branch  in _branches)
-        {
-            System.Diagnostics.Debug.WriteLine(branch.Id);
-        }
-        System.Diagnostics.Debug.WriteLine("provided" + id);
         return _branches.Find(b => b.Id == id);
     }
 
