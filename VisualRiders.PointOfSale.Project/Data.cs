@@ -4,6 +4,8 @@ namespace VisualRiders.PointOfSale.Project;
 
 public class Data
 {
+    public static List<Order> Orders { get; set; }
+
     public static List<Permission> Permissions { get; set; }
     
     public static List<Role> Roles { get; set; }
