@@ -16,7 +16,7 @@ public class Branch
     
     public string Contacts { get; set; }
     
-    public BranchStatus BranchStatus { get; set; }
+    public BranchStatus Status { get; set; }
     
     public Company Company { get; set; }
 }

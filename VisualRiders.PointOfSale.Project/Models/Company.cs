@@ -14,5 +14,5 @@ public class Company
     
     public string BillingDetails { get; set; }
     
-    public CompanyStatus CompanyStatus { get; set; }
+    public CompanyStatus Status { get; set; }
 }

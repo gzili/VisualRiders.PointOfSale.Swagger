@@ -17,7 +17,7 @@ public class CompaniesRepository
             Name = dto.Name,
             ActiveSince = dto.ActiveSince,
             BillingDetails = dto.BillingDetails,
-            CompanyStatus = dto.CompanyStatus,
+            Status = dto.CompanyStatus,
             LegalCompanyName = dto.LegalCompanyName
         };
         
@@ -41,7 +41,7 @@ public class CompaniesRepository
         company.Name = dto.Name;
         company.ActiveSince = dto.ActiveSince;
         company.BillingDetails = dto.BillingDetails;
-        company.CompanyStatus = dto.CompanyStatus;
+        company.Status = dto.CompanyStatus;
         company.LegalCompanyName = dto.LegalCompanyName;
     }
 

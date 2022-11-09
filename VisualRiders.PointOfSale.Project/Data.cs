@@ -21,7 +21,7 @@ public class Data
                 ActiveSince = DateTime.Now.ToString(CultureInfo.InvariantCulture),
                 LegalCompanyName = "Company1",
                 BillingDetails = "details",
-                CompanyStatus = CompanyStatus.Active
+                Status = CompanyStatus.Active
             },
             new Company()
             {
@@ -30,7 +30,7 @@ public class Data
                 ActiveSince = new DateTime(2022, 11, 07).ToString(CultureInfo.InvariantCulture),
                 LegalCompanyName = "Company2",
                 BillingDetails = "details",
-                CompanyStatus = CompanyStatus.Active
+                Status = CompanyStatus.Active
             }
         };
         Branches = new()
@@ -38,7 +38,7 @@ public class Data
             new Branch {
                 Id = Guid.NewGuid(),
                 Address = "Address",
-                BranchStatus = BranchStatus.Active,
+                Status = BranchStatus.Active,
                 Company = Companies[0],
                 Contacts = "email@domain.com",
                 WorkingDays = WorkingDays.Monday | WorkingDays.Friday,
@@ -48,7 +48,7 @@ public class Data
             new Branch {
                 Id = Guid.NewGuid(),
                 Address = "Address2",
-                BranchStatus = BranchStatus.Active,
+                Status = BranchStatus.Active,
                 Company = Companies[1],
                 Contacts = "email2@domain.com",
                 WorkingDays = WorkingDays.Monday | WorkingDays.Friday,

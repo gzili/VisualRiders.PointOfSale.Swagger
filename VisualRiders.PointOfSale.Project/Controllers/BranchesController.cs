@@ -62,40 +62,6 @@ public class BranchesController : ControllerBase
         return branch;
     }
     
-    [HttpPatch("{id:guid}/working-hours")]
-    [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Branch> UpdateWorkingHours(Guid id, UpdateBranchWorkingHoursDto dto)
-    {
-        var branch = _branchesRepository.GetById(id);
-
-        if (branch == null)
-        {
-            return NotFound();
-        }
-        
-        _branchesRepository.UpdateWorkingHours(branch, dto);
-
-        return branch;
-    }
-    
-    [HttpPatch("{id:guid}/contacts")]
-    [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Branch> UpdateContacts(Guid id, UpdateBranchContactsDto dto)
-    {
-        var branch = _branchesRepository.GetById(id);
-
-        if (branch == null)
-        {
-            return NotFound();
-        }
-        
-        _branchesRepository.UpdateContacts(branch, dto);
-
-        return branch;
-    }
-
     [HttpDelete("{id:guid}")]
     [ProducesDefaultResponseType]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
