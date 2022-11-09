@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -17,10 +18,10 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
-        public ActionResult<Service> Create(Service service)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public ActionResult<Service> Create(CreateUpdateServiceDto dto)
         {
-            _servicesRepository.Create(service);
+            var service = _servicesRepository.Create(dto);
 
             return CreatedAtAction("GetById", new { id = service.Id }, service);
         }
@@ -32,8 +33,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpGet("{status:int}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Service>> GetAllByStatus(int status)
         {
             var services = _servicesRepository.GetAllByStatus(status);
@@ -47,8 +48,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Service> GetById(Guid id)
         {
             var service = _servicesRepository.GetById(id);
@@ -61,27 +62,58 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return service;
         }
 
-        [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public ActionResult<PurchasableItem> UpdateService(Service service)
+        [HttpPut("{id:guid}")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<PurchasableItem> UpdateById(Guid id, CreateUpdateServiceDto dto)
         {
+            var service = _servicesRepository.GetById(id);
 
             if (service == null)
             {
                 return NotFound();
             }
 
-            _servicesRepository.UpdateItem(service);
+            _servicesRepository.Update(service, dto);
+
+            return Ok();
+        }
+
+        //public void ChangeDiscount() { }
+        //public void ChangeBranch() { }
+
+        [HttpPut("{id:guid}/status")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<PurchasableItem> ChangeStatus(Guid id, UpdateServiceStatusDto dto)
+        {
+            var service = _servicesRepository.GetById(id);
+
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            _servicesRepository.ChangeStatus(service, dto);
+
             return Ok();
         }
 
         [HttpDelete("{id:guid}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        public ActionResult<PurchasableItem> DeleteById(Guid id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteById(Guid id)
         {
-            if (_servicesRepository.GetById(id) == null)
+
+            var service = _servicesRepository.GetById(id);
+
+            if (service == null || service.Status == Enums.ServiceStatus.Deleted)
             {
                 return NotFound();
             }

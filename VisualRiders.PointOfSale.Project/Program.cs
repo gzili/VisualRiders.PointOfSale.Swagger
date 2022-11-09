@@ -13,6 +13,7 @@ builder.Services.AddScoped<ProductsRepository>();
 builder.Services.AddScoped<PurchasableItemsRepository>();
 builder.Services.AddScoped<ItemCategoriesRepository>();
 builder.Services.AddScoped<CustomersRepository>();
+builder.Services.AddScoped<ServicesRepository>();
 
 var app = builder.Build();
 
