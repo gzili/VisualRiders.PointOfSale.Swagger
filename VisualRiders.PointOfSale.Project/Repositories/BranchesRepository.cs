@@ -55,6 +55,17 @@ public class BranchesRepository
         branch.WorkingHourStart = dto.WorkingHourStart;
         branch.WorkingHourEnd = dto.WorkingHourEnd;
     }
+    
+    public void UpdateWorkingHours(Branch branch, UpdateBranchWorkingHoursDto dto)
+    {
+        branch.WorkingHourStart = dto.WorkingHourStart;
+        branch.WorkingHourEnd = dto.WorkingHourEnd;
+    }
+
+    public void UpdateContacts(Branch branch, UpdateBranchContactsDto dto)
+    {
+        branch.Contacts = dto.Contacts;
+    }
 
     public void Delete(Branch branch)
     {
