@@ -12,6 +12,8 @@ public class Data
 
     static Data()
     {
+        Orders = new List<Order>();
+        
         var permission1 = new Permission
         {
             Id = Guid.NewGuid(),
