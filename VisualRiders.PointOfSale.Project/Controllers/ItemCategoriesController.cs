@@ -8,7 +8,6 @@ namespace VisualRiders.PointOfSale.Project.Controllers
     [Route("api/[controller]")]
     public class ItemCategoriesController : ControllerBase
     {
-
         private readonly ItemCategoriesRepository _itemCategoriesRepository;
 
         public ItemCategoriesController(ItemCategoriesRepository itemCategoriesRepository)
@@ -16,9 +15,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             _itemCategoriesRepository = itemCategoriesRepository;
         }
 
-
         [HttpPost]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<ItemCategory> Create(ItemCategory itemCategory)
         {
             _itemCategoriesRepository.Create(itemCategory);
@@ -32,10 +30,9 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return _itemCategoriesRepository.GetAll();
         }
 
-
         [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> UpdateCategory(ItemCategory itemCategory)
         {
 
@@ -49,8 +46,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchasableItem> DeleteById(Guid id)
         {
             if (_itemCategoriesRepository.GetById(id) == null)
