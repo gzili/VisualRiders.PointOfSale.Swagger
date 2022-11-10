@@ -17,7 +17,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Duration = 0,
                 Type = PurchasableItemType.Type1,
                 Status = PurchasableItemStatus.Deleted,
-                ItemCathegoryId =  Guid.NewGuid(),
+                ItemCategoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             },
             new()
@@ -29,7 +29,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Duration = 0,
                 Type = PurchasableItemType.Type2,
                 Status = PurchasableItemStatus.Active,
-                ItemCathegoryId =  Guid.NewGuid(),
+                ItemCategoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
             }
         };
@@ -45,7 +45,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Duration = dto.Duration,
                 Type = dto.Type,
                 Status = PurchasableItemStatus.Active,
-                ItemCathegoryId = Guid.Empty,
+                ItemCategoryId = Guid.Empty,
                 DiscountId = Guid.Empty
             };
 
@@ -76,7 +76,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public void ChangeCategory(PurchasableItem item, UpdatePurchasableItemCategoryDto dto)
         {
-            item.ItemCathegoryId = dto.CategoryId;
+            item.ItemCategoryId = dto.CategoryId;
         }
 
         public void ChangeStatus(PurchasableItem item, UpdatePurchasableItemStatusDto dto)

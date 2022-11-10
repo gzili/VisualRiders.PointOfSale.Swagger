@@ -19,7 +19,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
         [HttpPost]
         [ProducesResponseType(201)]
-        public ActionResult<ItemCathegory> Create(ItemCathegory itemCategory)
+        public ActionResult<ItemCategory> Create(ItemCategory itemCategory)
         {
             _itemCategoriesRepository.Create(itemCategory);
 
@@ -27,7 +27,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpGet]
-        public List<ItemCathegory> GetAll()
+        public List<ItemCategory> GetAll()
         {
             return _itemCategoriesRepository.GetAll();
         }
@@ -36,7 +36,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public ActionResult<PurchasableItem> UpdateCathegory(ItemCathegory itemCategory)
+        public ActionResult<PurchasableItem> UpdateCategory(ItemCategory itemCategory)
         {
 
             if (itemCategory == null)
@@ -44,7 +44,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
                 return NotFound();
             }
 
-            _itemCategoriesRepository.UpdateCathegory(itemCategory);
+            _itemCategoriesRepository.UpdateCategory(itemCategory);
             return Ok();
         }
 

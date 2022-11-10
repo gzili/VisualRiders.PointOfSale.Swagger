@@ -18,7 +18,7 @@ namespace VisualRiders.PointOfSale.Project.Models
 
         public PurchasableItemStatus Status { get; set; }
 
-        public Guid ItemCathegoryId { get; set; }
+        public Guid ItemCategoryId { get; set; }
 
         public Guid DiscountId { get; set; }
 

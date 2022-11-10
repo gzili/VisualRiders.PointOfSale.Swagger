@@ -1,6 +1,6 @@
 ﻿namespace VisualRiders.PointOfSale.Project.Models
 {
-    public class ItemCathegory
+    public class ItemCategory
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

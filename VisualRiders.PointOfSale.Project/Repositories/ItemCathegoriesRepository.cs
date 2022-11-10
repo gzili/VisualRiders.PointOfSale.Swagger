@@ -4,12 +4,12 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 {
     public class ItemCategoriesRepository
     {
-        private static List<ItemCathegory> _itemCathegories = new()
+        private static List<ItemCategory> _itemCategories = new()
         {
             new()
             {
                 Id = Guid.NewGuid(),
-                Name = "Cathegory 1",
+                Name = "Category 1",
                 Description = "Description 1",
                 DiscountId = Guid.NewGuid()
 
@@ -17,43 +17,43 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             new()
             {
                 Id = Guid.NewGuid(),
-                Name = "Cathegory 2",
+                Name = "Category 2",
                 Description = "Description 1",
                 DiscountId = Guid.NewGuid()
             }
         };
 
-        public void Create(ItemCathegory cathegory)
+        public void Create(ItemCategory category)
         {
-            cathegory.Id = Guid.NewGuid();
+            category.Id = Guid.NewGuid();
 
-            _itemCathegories.Add(cathegory);
+            _itemCategories.Add(category);
         }
 
-        public List<ItemCathegory> GetAll()
+        public List<ItemCategory> GetAll()
         {
-            return _itemCathegories;
+            return _itemCategories;
         }
 
-        public ItemCathegory? GetById(Guid id) => _itemCathegories.Find(p => p.Id == id);
+        public ItemCategory? GetById(Guid id) => _itemCategories.Find(p => p.Id == id);
 
-        public void UpdateCathegory(ItemCathegory itemCathegory)
+        public void UpdateCategory(ItemCategory itemCategory)
         {
-            var index = _itemCathegories.FindIndex(p => p.Id == itemCathegory.Id);
+            var index = _itemCategories.FindIndex(p => p.Id == itemCategory.Id);
 
             if (index != -1)
             {
-                _itemCathegories[index] = itemCathegory;
+                _itemCategories[index] = itemCategory;
             }
         }
 
         public void DeleteById(Guid id)
         {
-            var item = _itemCathegories.Find(p => p.Id == id);
+            var item = _itemCategories.Find(p => p.Id == id);
 
             if (item != null)
             {
-                _itemCathegories.Remove(item);
+                _itemCategories.Remove(item);
             }
         }
 
