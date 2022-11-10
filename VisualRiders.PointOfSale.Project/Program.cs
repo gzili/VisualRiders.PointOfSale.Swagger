@@ -9,7 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<PermissionsRepository>();
 builder.Services.AddScoped<ProductsRepository>();
+builder.Services.AddScoped<RolesRepository>();
 
 var app = builder.Build();
 
