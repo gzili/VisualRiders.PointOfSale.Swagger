@@ -12,6 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<PermissionsRepository>();
 builder.Services.AddScoped<ProductsRepository>();
 builder.Services.AddScoped<RolesRepository>();
+builder.Services.AddScoped<BranchesRepository>();
+builder.Services.AddScoped<CompaniesRepository>();
 
 var app = builder.Build();
 
