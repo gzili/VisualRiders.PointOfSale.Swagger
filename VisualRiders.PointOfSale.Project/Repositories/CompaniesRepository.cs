@@ -1,17 +1,15 @@
-using System.Globalization;
 using VisualRiders.PointOfSale.Project.Dto;
-using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories;
 
 public class CompaniesRepository
 {
-    private static readonly List<Company> _companies = Data.Companies;
+    private readonly List<Company> _companies = Data.Companies;
 
     public Company Create(CreateUpdateCompanyDto dto)
     {
-        var company = new Company()
+        var company = new Company
         {
             Id = Guid.NewGuid(),
             Name = dto.Name,

@@ -1,12 +1,11 @@
 using VisualRiders.PointOfSale.Project.Dto;
-using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories;
 
 public class BranchesRepository
 {
-    private static readonly List<Branch> _branches = Data.Branches;
+    private readonly List<Branch> _branches = Data.Branches;
     private readonly CompaniesRepository _companiesRepository;
 
     public BranchesRepository(CompaniesRepository companiesRepository)
@@ -30,6 +29,7 @@ public class BranchesRepository
         };
         
         _branches.Add(branch);
+        
         return branch;
     }
 
