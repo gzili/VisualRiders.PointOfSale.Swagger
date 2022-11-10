@@ -62,7 +62,7 @@ public class BranchesController : ControllerBase
         return branch;
     }
     
-    [HttpPost("{id:guid}/working-hours")]
+    [HttpPut("{id:guid}/working-hours")]
     [ProducesDefaultResponseType]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Branch> UpdateWorkingHours(Guid id, UpdateBranchWorkingHoursDto dto)
@@ -79,7 +79,7 @@ public class BranchesController : ControllerBase
         return branch;
     }
 
-    [HttpPost("{id:guid}/contacts")]
+    [HttpPut("{id:guid}/contacts")]
     [ProducesDefaultResponseType]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Branch> UpdateContacts(Guid id, UpdateBranchContactsDto dto)
