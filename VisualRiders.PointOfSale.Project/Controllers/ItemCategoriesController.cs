@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -30,18 +31,19 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return _itemCategoriesRepository.GetAll();
         }
 
-        [HttpPut]
+        [HttpPut("{id:guid}")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<PurchasableItem> UpdateCategory(ItemCategory itemCategory)
+        public ActionResult<ItemCategory> UpdateCategory(Guid id, CreateUpdateItemCategoryDto dto)
         {
+            var itemCategory = _itemCategoriesRepository.GetById(id);
 
             if (itemCategory == null)
             {
                 return NotFound();
             }
 
-            _itemCategoriesRepository.UpdateCategory(itemCategory);
+            _itemCategoriesRepository.UpdateCategory(itemCategory, dto);
             return Ok();
         }
 

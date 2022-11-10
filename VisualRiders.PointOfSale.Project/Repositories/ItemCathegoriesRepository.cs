@@ -1,4 +1,5 @@
-﻿using VisualRiders.PointOfSale.Project.Models;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories
 {
@@ -37,14 +38,10 @@ namespace VisualRiders.PointOfSale.Project.Repositories
 
         public ItemCategory? GetById(Guid id) => _itemCategories.Find(p => p.Id == id);
 
-        public void UpdateCategory(ItemCategory itemCategory)
+        public void UpdateCategory(ItemCategory itemCategory, CreateUpdateItemCategoryDto dto)
         {
-            var index = _itemCategories.FindIndex(p => p.Id == itemCategory.Id);
-
-            if (index != -1)
-            {
-                _itemCategories[index] = itemCategory;
-            }
+            itemCategory.Name = dto.Name;
+            itemCategory.Description = dto.Description;
         }
 
         public void DeleteById(Guid id)
