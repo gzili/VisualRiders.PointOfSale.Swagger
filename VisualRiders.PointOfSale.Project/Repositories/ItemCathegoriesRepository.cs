@@ -44,15 +44,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             itemCategory.Description = dto.Description;
         }
 
-        public void DeleteById(Guid id)
-        {
-            var item = _itemCategories.Find(p => p.Id == id);
-
-            if (item != null)
-            {
-                _itemCategories.Remove(item);
-            }
-        }
-
+        public void DeleteById(ItemCategory itemCategory) => _itemCategories.Remove(itemCategory);
     }
 }

@@ -44,20 +44,22 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             }
 
             _itemCategoriesRepository.UpdateCategory(itemCategory, dto);
-            return Ok();
+            return itemCategory;
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<PurchasableItem> DeleteById(Guid id)
+        public IActionResult DeleteById(Guid id)
         {
-            if (_itemCategoriesRepository.GetById(id) == null)
+            var itemCategory = _itemCategoriesRepository.GetById(id);
+
+            if (itemCategory == null)
             {
                 return NotFound();
             }
 
-            _itemCategoriesRepository.DeleteById(id);
+            _itemCategoriesRepository.DeleteById(itemCategory);
 
             return NoContent();
         }
