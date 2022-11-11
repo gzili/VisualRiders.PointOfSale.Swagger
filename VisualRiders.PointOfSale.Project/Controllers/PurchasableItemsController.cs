@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -17,7 +17,6 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             _purchasableItemsRepository = purchasableItemsRepository;
         }
 
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<PurchasableItem> Create(CreateUpdatePurchasableItemDto dto)
@@ -27,13 +26,11 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return CreatedAtAction("GetById", new { id = item.Id }, item);
         }
 
-
         [HttpGet]
         public List<PurchasableItem> GetAll()
         {
             return _purchasableItemsRepository.GetAll();
         }
-
 
         [HttpGet("{status:int}")]
         [ProducesDefaultResponseType]
@@ -49,7 +46,6 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
             return items;
         }
-
 
         [HttpGet("{id:guid}")]
         [ProducesDefaultResponseType]
@@ -82,7 +78,6 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return purchasableItem;
         }
 
-
         [HttpPut("{id:guid}/category")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -94,11 +89,6 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             if (purchasableItem == null)
             {
                 return NotFound();
-            }
-
-            if(categoryDto == null)
-            {
-                return BadRequest();
             }
 
             _purchasableItemsRepository.ChangeCategory(purchasableItem, categoryDto);
@@ -119,17 +109,10 @@ namespace VisualRiders.PointOfSale.Project.Controllers
                 return NotFound();
             }
 
-            if (dto == null)
-            {
-                return BadRequest();
-            }
-
             _purchasableItemsRepository.ChangeStatus(purchasableItem, dto);
 
             return Ok();
         }
-
-
 
         [HttpDelete("{id:guid}")]
         [ProducesDefaultResponseType]
@@ -138,12 +121,12 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         {
             var item = _purchasableItemsRepository.GetById(id);
 
-            if( item == null || item.Status == Enums.PurchasableItemStatus.Deleted)
+            if( item == null || item.Status == PurchasableItemStatus.Deleted)
             {
                 return NotFound();
             }
 
-            _purchasableItemsRepository.DeleteById(id);
+            _purchasableItemsRepository.DeleteById(item);
 
             return NoContent();
         }

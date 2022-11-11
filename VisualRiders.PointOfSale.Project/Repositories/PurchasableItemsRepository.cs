@@ -84,14 +84,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             item.Status = dto.Status;
         }
 
-        public void DeleteById(Guid id)
-        {
-            var index = _purchasableItems.FindIndex(p => p.Id == id);
-
-            if(index != -1)
-            {
-                _purchasableItems[index].Status = PurchasableItemStatus.Deleted;
-            }
-        }
+        public void DeleteById(PurchasableItem item) => item.Status = PurchasableItemStatus.Deleted;
     }
 }
