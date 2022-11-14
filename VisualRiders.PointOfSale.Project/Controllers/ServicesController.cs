@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
 using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -95,11 +96,6 @@ namespace VisualRiders.PointOfSale.Project.Controllers
                 return NotFound();
             }
 
-            if (dto == null)
-            {
-                return BadRequest();
-            }
-
             _servicesRepository.ChangeStatus(service, dto);
 
             return Ok();
@@ -113,12 +109,12 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
             var service = _servicesRepository.GetById(id);
 
-            if (service == null || service.Status == Enums.ServiceStatus.Deleted)
+            if (service == null || service.Status == ServiceStatus.Deleted)
             {
                 return NotFound();
             }
 
-            _servicesRepository.DeleteById(id);
+            _servicesRepository.DeleteById(service);
 
             return NoContent();
         }

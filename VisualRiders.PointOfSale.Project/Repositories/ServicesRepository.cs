@@ -71,19 +71,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             service.Type = dto.Type;
         }
 
-        public void ChangeStatus(Service service, UpdateServiceStatusDto dto)
-        {
-            service.Status = dto.Status;
-        }
+        public void ChangeStatus(Service service, UpdateServiceStatusDto dto) => service.Status = dto.Status;
 
-        public void DeleteById(Guid id)
-        {
-            var index = _services.FindIndex(s => s.Id == id);
-
-            if(index != -1)
-            {
-                _services[index].Status = Enums.ServiceStatus.Deleted;
-            }
-        }
+        public void DeleteById(Service service) => service.Status = ServiceStatus.Deleted;
     }
 }
