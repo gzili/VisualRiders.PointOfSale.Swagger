@@ -59,10 +59,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             return _purchasableItems;
         }
 
-        public List<PurchasableItem> GetAllByStatus(int itemStatus)
-        {
-            return _purchasableItems.FindAll(p => (int)p.Status == itemStatus);
-        }
+        public List<PurchasableItem> GetAllActive() =>  _purchasableItems.FindAll(p => p.Status == PurchasableItemStatus.Active);
+        public List<PurchasableItem> GetAllDeleted() =>  _purchasableItems.FindAll(p => p.Status == PurchasableItemStatus.Deleted);
 
         public PurchasableItem? GetById(Guid id) => _purchasableItems.Find(p => p.Id == id);
 

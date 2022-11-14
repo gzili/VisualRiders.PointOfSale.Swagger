@@ -32,12 +32,27 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return _purchasableItemsRepository.GetAll();
         }
 
-        [HttpGet("{status:int}")]
+        [HttpGet("active")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<List<PurchasableItem>> GetAllByStatus(int status)
+        public ActionResult<List<PurchasableItem>> GetAllActive()
         {
-            var items = _purchasableItemsRepository.GetAllByStatus(status);
+            var items = _purchasableItemsRepository.GetAllActive();
+
+            if (items == null)
+            {
+                return NotFound();
+            }
+
+            return items;
+        }
+
+        [HttpGet("deleted")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<List<PurchasableItem>> GetAllDeleted()
+        {
+            var items = _purchasableItemsRepository.GetAllDeleted();
 
             if (items == null)
             {
@@ -81,7 +96,6 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         [HttpPut("{id:guid}/category")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<PurchasableItem> ChangeCategory(Guid id, UpdatePurchasableItemCategoryDto categoryDto)
         {
             var purchasableItem = _purchasableItemsRepository.GetById(id);
