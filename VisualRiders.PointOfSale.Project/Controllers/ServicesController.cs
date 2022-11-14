@@ -33,14 +33,29 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return _servicesRepository.GetAll();
         }
 
-        [HttpGet("{status:int}")]
+        [HttpGet("active")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<List<Service>> GetAllByStatus(int status)
+        public ActionResult<List<Service>> GetAllActive()
         {
-            var services = _servicesRepository.GetAllByStatus(status);
+            var services = _servicesRepository.GetAllActive();
 
             if(services == null)
+            {
+                return NotFound();
+            }
+
+            return services;
+        }
+
+        [HttpGet("deleted")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<List<Service>> GetAllDeleted()
+        {
+            var services = _servicesRepository.GetAllDeleted();
+
+            if (services == null)
             {
                 return NotFound();
             }

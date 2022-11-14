@@ -56,10 +56,8 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             return _services;
         }
 
-        public List<Service> GetAllByStatus(int status)
-        {
-            return _services.FindAll(s => (int)s.Status == status);
-        }
+        public List<Service> GetAllActive() => _services.FindAll(s => s.Status == ServiceStatus.Active);
+        public List<Service> GetAllDeleted() => _services.FindAll(s => s.Status == ServiceStatus.Deleted);
 
         public Service? GetById(Guid id) => _services.Find(s => s.Id == id);
 
