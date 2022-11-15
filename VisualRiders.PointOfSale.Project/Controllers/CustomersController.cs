@@ -17,12 +17,10 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public ActionResult<Customer> Create(CreateCustomerDto customerDto)
         {
-            var customer = _customersRepository.Create(customerDto);
-
-            return CreatedAtAction("GetById", new { id = customer.Id}, customer);
+            return _customersRepository.Create(customerDto);
         }
 
         [HttpGet]

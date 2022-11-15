@@ -31,6 +31,21 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return _itemCategoriesRepository.GetAll();
         }
 
+        [HttpGet("{id:guid}")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<ItemCategory> GetById(Guid id)
+        {
+            var itemCategory = _itemCategoriesRepository.GetById(id);
+
+            if (itemCategory == null)
+            {
+                return NotFound();
+            }
+
+            return itemCategory;
+        }
+
         [HttpPut("{id:guid}")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
