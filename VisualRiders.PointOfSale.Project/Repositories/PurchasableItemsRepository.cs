@@ -70,6 +70,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             item.Name = dto.Name;
             item.Description = dto.Description;
             item.Duration = dto.Duration;
+            item.Type = dto.Type;
         }
 
         public void ChangeCategory(PurchasableItem item, UpdatePurchasableItemCategoryDto dto)
