@@ -9,8 +9,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<PermissionsRepository>();
 builder.Services.AddScoped<ProductsRepository>();
 builder.Services.AddScoped<DiscountsRepository>();
+builder.Services.AddScoped<PurchasableItemsRepository>();
+builder.Services.AddScoped<ItemCategoriesRepository>();
+builder.Services.AddScoped<CustomersRepository>();
+builder.Services.AddScoped<ServicesRepository>();
+builder.Services.AddScoped<RolesRepository>();
+builder.Services.AddScoped<BranchesRepository>();
+builder.Services.AddScoped<CompaniesRepository>();
 
 var app = builder.Build();
 
