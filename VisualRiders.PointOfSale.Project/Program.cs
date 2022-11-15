@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<PermissionsRepository>();
 builder.Services.AddScoped<ProductsRepository>();
+builder.Services.AddScoped<DiscountsRepository>();
 builder.Services.AddScoped<PurchasableItemsRepository>();
 builder.Services.AddScoped<ItemCategoriesRepository>();
 builder.Services.AddScoped<CustomersRepository>();
