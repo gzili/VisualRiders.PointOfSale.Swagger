@@ -1,4 +1,5 @@
-﻿using VisualRiders.PointOfSale.Project.Models;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories;
 
@@ -18,11 +19,17 @@ public class ProductsRepository
         }
     };
 
-    public void Create(Product product)
+    public Product Create(CreateUpdateProductDto dto)
     {
-        product.Id = Guid.NewGuid();
-        
+        var product = new Product
+        {
+            Id = Guid.NewGuid(),
+            Name = dto.Name
+        };
+
         _products.Add(product);
+
+        return product;
     }
 
     public List<Product> GetAll()
@@ -31,4 +38,14 @@ public class ProductsRepository
     }
 
     public Product? GetById(Guid id) => _products.Find(p => p.Id == id);
+
+    public void Update(Product product, CreateUpdateProductDto dto)
+    {
+        product.Name = dto.Name;
+    }
+
+    public void Remove(Product product)
+    {
+        _products.Remove(product);
+    }
 }
