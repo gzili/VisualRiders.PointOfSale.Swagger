@@ -1,4 +1,6 @@
-﻿namespace VisualRiders.PointOfSale.Project.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VisualRiders.PointOfSale.Project.Models
 {
     public enum EmployeeStatus
     {
@@ -8,7 +10,7 @@
 
     public class Employee
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

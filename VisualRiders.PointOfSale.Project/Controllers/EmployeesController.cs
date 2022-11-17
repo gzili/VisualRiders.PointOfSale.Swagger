@@ -16,7 +16,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<Employee> Create(Employee employee)
         {
             _employeesRepository.Create(employee);
@@ -31,8 +31,8 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Employee> GetById(Guid id)
         {
             var employee = _employeesRepository.GetById(id);
@@ -47,20 +47,35 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
 
         [HttpPut("{id:guid}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult UpdateById(Employee employee)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Employee> UpdateById([FromQuery]Guid id, Employee newEmployee)
         {
+            var employee = _employeesRepository.GetById(id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            newEmployee.Id = id;
             _employeesRepository.Update(employee);
-            return NoContent();
+            return employee;
         }
 
         [HttpPut("{id:guid}/Status")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult DisableEmployee(Employee employee)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Employee> DisableEmployee([FromQuery] Guid id, Employee newEmployee)
         {
-            employee.Status = EmployeeStatus.Deleted;
+            var employee = _employeesRepository.GetById(id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            employee.Status = newEmployee.Status;
             _employeesRepository.Update(employee);
-            return NoContent();
+            return employee;
         }
 
         [HttpPut("{id:guid}/Role")]
@@ -92,10 +107,14 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult DeleteById(Employee employee)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult DeleteById([FromQuery] Guid id)
         {
-            if (!_employeesRepository.Delete(employee))
+            if (!_employeesRepository.Delete(id))
+            {
                 return NotFound();
+            }
+
             return NoContent();
         }
     }

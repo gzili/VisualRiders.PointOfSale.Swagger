@@ -9,7 +9,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             new()
             {
                 Id = Guid.NewGuid(),
-                Email = Guid.NewGuid().ToString().Substring(0, 5) + "@" + Guid.NewGuid().ToString().Substring(0, 5) + "." + Guid.NewGuid().ToString().Substring(0, 3),
+                Email = "user1@mail.com",
                 Name = "Antanas",
                 Password = "Antanas123",
                 Status = EmployeeStatus.Active
@@ -17,7 +17,7 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             new()
             {
                 Id = Guid.NewGuid(),
-                Email = Guid.NewGuid().ToString().Substring(0, 5) + "@" + Guid.NewGuid().ToString().Substring(0, 5) + "." + Guid.NewGuid().ToString().Substring(0, 3),
+                Email = "user2@mail.com",
                 Name = "Petras",
                 Password = "Petras123",
                 Status = EmployeeStatus.Active
@@ -47,9 +47,9 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             }
         }
 
-        public bool Delete(Employee employee)
+        public bool Delete(Guid id)
         {
-            return _employees.RemoveAll(a => a.Id == employee.Id) > 0;
+            return _employees.RemoveAll(a => a.Id == id) > 0;
         }
     }
 }
