@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
 
@@ -17,23 +18,34 @@ namespace VisualRiders.PointOfSale.Project.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<Employee> Create(Employee employee)
+        public ActionResult<EmployeeDto> Create(Employee employee)
         {
             _employeesRepository.Create(employee);
 
-            return CreatedAtAction("GetById", new { id = employee.Id }, employee);
+            return CreatedAtAction("GetById", new { id = employee.Id }, new EmployeeDto
+            {
+                Id = employee.Id,
+                Company = employee.Company,
+                Email = employee.Email,
+                Name = employee.Name,
+                Role = employee.Role,
+                Status = employee.Status
+            });
         }
 
         [HttpGet]
-        public List<Employee> GetAll()
+        public List<EmployeeListItemDto> GetAll()
         {
-            return _employeesRepository.GetAll();
+            return _employeesRepository.GetAll().Select(e => new EmployeeListItemDto() { 
+                Id = e.Id, 
+                Name = e.Name
+            }).ToList();
         }
 
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Employee> GetById(Guid id)
+        public ActionResult<EmployeeDto> GetById(Guid id)
         {
             var employee = _employeesRepository.GetById(id);
 
@@ -42,14 +54,22 @@ namespace VisualRiders.PointOfSale.Project.Controllers
                 return NotFound();
             }
 
-            return employee;
+            return new EmployeeDto()
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Company = employee.Company,
+                Email = employee.Email,
+                Role = employee.Role,
+                Status = employee.Status
+            };
         }
 
 
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Employee> UpdateById([FromQuery]Guid id, Employee newEmployee)
+        public ActionResult<EmployeeDto> UpdateById([FromRoute] Guid id, Employee newEmployee)
         {
             var employee = _employeesRepository.GetById(id);
 
@@ -59,13 +79,21 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             }
             newEmployee.Id = id;
             _employeesRepository.Update(employee);
-            return employee;
+            return new EmployeeDto
+            {
+                Id = employee.Id,
+                Company = employee.Company,
+                Email = employee.Email,
+                Name = employee.Name,
+                Role = employee.Role,
+                Status = employee.Status
+            };
         }
 
         [HttpPut("{id:guid}/Status")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Employee> DisableEmployee([FromQuery] Guid id, Employee newEmployee)
+        public ActionResult<EmployeeDto> DisableEmployee([FromRoute] Guid id, EmployeeDto newEmployee)
         {
             var employee = _employeesRepository.GetById(id);
 
@@ -75,7 +103,15 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             }
             employee.Status = newEmployee.Status;
             _employeesRepository.Update(employee);
-            return employee;
+            return new EmployeeDto
+            {
+                Id = employee.Id,
+                Company = employee.Company,
+                Email = employee.Email,
+                Name = employee.Name,
+                Role = employee.Role,
+                Status = employee.Status
+            };
         }
 
         [HttpPut("{id:guid}/Role")]
@@ -108,7 +144,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteById([FromQuery] Guid id)
+        public ActionResult DeleteById([FromRoute] Guid id)
         {
             if (!_employeesRepository.Delete(id))
             {
