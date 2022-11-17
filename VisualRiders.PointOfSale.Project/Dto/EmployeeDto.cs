@@ -8,6 +8,6 @@ public class EmployeeDto
     public string Name { get; set; }
     public string Email { get; set; }
     public EmployeeStatus Status { get; set; }
-    public Role Role { get; set; }
-    public Company Company { get; set; }
+    public Guid RoleId { get; set; }
+    public Guid CompanyId { get; set; }
 }

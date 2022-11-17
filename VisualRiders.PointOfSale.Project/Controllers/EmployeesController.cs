@@ -25,10 +25,10 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return CreatedAtAction("GetById", new { id = employee.Id }, new EmployeeDto
             {
                 Id = employee.Id,
-                Company = employee.Company,
+                CompanyId = employee.CompanyId,
                 Email = employee.Email,
                 Name = employee.Name,
-                Role = employee.Role,
+                RoleId = employee.RoleId,
                 Status = employee.Status
             });
         }
@@ -58,9 +58,9 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             {
                 Id = employee.Id,
                 Name = employee.Name,
-                Company = employee.Company,
+                CompanyId = employee.CompanyId,
                 Email = employee.Email,
-                Role = employee.Role,
+                RoleId = employee.RoleId,
                 Status = employee.Status
             };
         }
@@ -82,10 +82,10 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return new EmployeeDto
             {
                 Id = employee.Id,
-                Company = employee.Company,
+                CompanyId = employee.CompanyId,
                 Email = employee.Email,
                 Name = employee.Name,
-                Role = employee.Role,
+                RoleId = employee.RoleId,
                 Status = employee.Status
             };
         }
@@ -106,21 +106,35 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return new EmployeeDto
             {
                 Id = employee.Id,
-                Company = employee.Company,
+                CompanyId = employee.CompanyId,
                 Email = employee.Email,
                 Name = employee.Name,
-                Role = employee.Role,
+                RoleId = employee.RoleId,
                 Status = employee.Status
             };
         }
 
         [HttpPut("{id:guid}/Role")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult ChangeEmployeeRole([FromRoute]Employee employee/*, [FromBody] Role role*/)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult ChangeEmployeeRole([FromRoute]Guid id, UpdateEmployeeRoleDto roleDto)
         {
-            /*employee.Role = role;*/
-            _employeesRepository.Update(employee);
-            return NoContent();
+            var employee = _employeesRepository.GetById(id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            if (roleDto == null)
+            {
+                return BadRequest();
+            }
+
+            _employeesRepository.ChangeRole(employee, roleDto);
+
+            return Ok();
         }
 
         [HttpGet("{id:guid}/Shifts")]

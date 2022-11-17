@@ -1,4 +1,5 @@
-﻿using VisualRiders.PointOfSale.Project.Models;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories
 {
@@ -50,6 +51,11 @@ namespace VisualRiders.PointOfSale.Project.Repositories
         public bool Delete(Guid id)
         {
             return _employees.RemoveAll(a => a.Id == id) > 0;
+        }
+
+        public void ChangeRole(Employee employee, UpdateEmployeeRoleDto roleDto)
+        {
+            employee.RoleId = roleDto.roleId;
         }
     }
 }

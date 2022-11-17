@@ -16,7 +16,7 @@ namespace VisualRiders.PointOfSale.Project.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public EmployeeStatus Status { get; set; }
-        public Role Role { get; set; }
-        public Company Company { get; set; }
+        public Guid RoleId { get; set; }
+        public Guid CompanyId { get; set; }
     }
 }
