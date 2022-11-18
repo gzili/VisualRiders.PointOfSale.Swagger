@@ -23,7 +23,6 @@ public class OrdersRepository
         {
             var item = new OrderItem
             {
-                PurchasableItemId = itemDto.PurchasableItemId,
                 Amount = itemDto.Amount
             };
             

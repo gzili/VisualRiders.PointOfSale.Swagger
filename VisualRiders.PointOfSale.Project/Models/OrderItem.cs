@@ -1,8 +1,10 @@
-﻿namespace VisualRiders.PointOfSale.Project.Models;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+
+namespace VisualRiders.PointOfSale.Project.Models;
 
 public class OrderItem
 {
-    public Guid PurchasableItemId { get; set; }
+    public OrderItemPurchasableItemDto PurchasableItem { get; set; }
     
     public int Amount { get; set; }
     
