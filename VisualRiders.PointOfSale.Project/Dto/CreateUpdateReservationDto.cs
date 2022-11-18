@@ -5,8 +5,6 @@ namespace VisualRiders.PointOfSale.Project.Dto;
 
 public class CreateUpdateReservationDto
 {
-    public Guid Id { get; set; }
-    
     public DateTime StartTime { get; set; }
     
     public DateTime EndTime { get; set; }
