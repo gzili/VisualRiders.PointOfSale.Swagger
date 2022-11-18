@@ -19,6 +19,9 @@ builder.Services.AddScoped<ServicesRepository>();
 builder.Services.AddScoped<RolesRepository>();
 builder.Services.AddScoped<BranchesRepository>();
 builder.Services.AddScoped<CompaniesRepository>();
+builder.Services.AddScoped<ReservationsRepository>();
+builder.Services.AddScoped<OrdersRepository>();
+builder.Services.AddScoped<EmployeesRepository>();
 
 var app = builder.Build();
 
