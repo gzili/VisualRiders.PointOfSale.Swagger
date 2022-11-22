@@ -23,6 +23,8 @@ public class Data
     
     private static List<Service> Services { get; set; }
     
+    public static List<Receipt> Receipts { get; set; }
+    
     static Data()
     {
         Companies = new()
@@ -144,6 +146,32 @@ public class Data
         };
         
         Orders = new List<Order>();
+
+        var customerId = Guid.NewGuid();
+
+        Receipts = new List<Receipt>()
+        {
+            new Receipt()
+            {
+                Amount = 2,
+                Customer = customerId,
+                Id = Guid.NewGuid(),
+                Order = Guid.NewGuid(),
+                TotalPaid = 19,
+                Tax = Guid.NewGuid(),
+
+            },
+            
+            new Receipt()
+            {
+                Amount = 1,
+                Customer = customerId,
+                Id = Guid.NewGuid(),
+                Order = Guid.NewGuid(),
+                TotalPaid = 232,
+                Tax = Guid.NewGuid(),
+            }
+        };
         
         var permission1 = new Permission
         {

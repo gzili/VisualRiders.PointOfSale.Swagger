@@ -29,6 +29,7 @@ builder.Services.AddScoped<CompaniesRepository>();
 builder.Services.AddScoped<ReservationsRepository>();
 builder.Services.AddScoped<OrdersRepository>();
 builder.Services.AddScoped<EmployeesRepository>();
+builder.Services.AddScoped<ReportsRepository>();
 
 var app = builder.Build();
 
