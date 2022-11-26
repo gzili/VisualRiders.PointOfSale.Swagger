@@ -8,7 +8,7 @@ using VisualRiders.PointOfSale.Project.Repositories;
 namespace VisualRiders.PointOfSale.Project.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/services")]
     public class ServicesController : ControllerBase
     {
         private readonly ServicesRepository _servicesRepository;

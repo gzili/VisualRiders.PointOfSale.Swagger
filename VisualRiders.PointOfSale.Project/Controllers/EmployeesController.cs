@@ -6,7 +6,7 @@ using VisualRiders.PointOfSale.Project.Repositories;
 namespace VisualRiders.PointOfSale.Project.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/employees")]
     public class EmployeesController : Controller
     {
         private readonly EmployeesRepository _employeesRepository;
@@ -90,7 +90,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             };
         }
 
-        [HttpPut("{id:guid}/Status")]
+        [HttpPut("{id:guid}/status")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<EmployeeDto> DisableEmployee([FromRoute] Guid id, EmployeeDto newEmployee)
@@ -114,7 +114,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             };
         }
 
-        [HttpPut("{id:guid}/Role")]
+        [HttpPut("{id:guid}/role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -137,19 +137,19 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             return Ok();
         }
 
-        [HttpGet("{id:guid}/Shifts")]
+        [HttpGet("{id:guid}/shifts")]
         public ActionResult GetAllShifts([FromRoute] Employee employee)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost("{id:guid}/Shifts")]
+        [HttpPost("{id:guid}/shifts")]
         public ActionResult SetShift([FromRoute] Employee employee)
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet("{id:guid}/Orders")]
+        [HttpGet("{id:guid}/orders")]
         public ActionResult GetAllOrders([FromRoute] Employee employee)
         {
             throw new NotImplementedException();

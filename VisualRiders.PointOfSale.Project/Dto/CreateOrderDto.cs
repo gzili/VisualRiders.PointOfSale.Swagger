@@ -20,8 +20,6 @@ public class CreateOrderDto
     
     public List<CreateOrderItemDto> Items { get; set; }
     
-    [SwaggerSchema("Allows including services in the order by accepting the `ID`s of reservations that the services were booked with.")]
+    [SwaggerSchema("Allows including services in the order by providing the `ID`s of reservations that the services were booked with.")]
     public List<Guid> ServiceReservationIds { get; set; }
-    
-    public Delivery Delivery { get; set; }
 }

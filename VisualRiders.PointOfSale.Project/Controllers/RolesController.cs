@@ -6,7 +6,7 @@ using VisualRiders.PointOfSale.Project.Repositories;
 namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/roles")]
 public class RolesController : ControllerBase
 {
     private readonly RolesRepository _rolesRepository;

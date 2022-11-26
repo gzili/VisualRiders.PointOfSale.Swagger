@@ -6,7 +6,7 @@ using VisualRiders.PointOfSale.Project.Repositories;
 namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/branches")]
 public class BranchesController : ControllerBase
 {
     private readonly BranchesRepository _branchesRepository;

@@ -6,7 +6,9 @@ public class UpdateOrderDto
     
     public string Comment { get; set; }
     
-    public object? Discount { get; set; }
+    public Guid? DiscountId { get; set; }
     
-    public object? Delivery { get; set; }
+    public List<CreateOrderItemDto> Items { get; set; }
+    
+    public List<Guid> ServiceReservationIds { get; set; }
 }

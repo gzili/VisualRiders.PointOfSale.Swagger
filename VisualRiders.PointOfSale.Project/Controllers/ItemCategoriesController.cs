@@ -6,7 +6,7 @@ using VisualRiders.PointOfSale.Project.Repositories;
 namespace VisualRiders.PointOfSale.Project.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/item-categories")]
     public class ItemCategoriesController : ControllerBase
     {
         private readonly ItemCategoriesRepository _itemCategoriesRepository;

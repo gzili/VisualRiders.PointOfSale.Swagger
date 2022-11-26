@@ -5,7 +5,7 @@ using VisualRiders.PointOfSale.Project.Repositories;
 namespace VisualRiders.PointOfSale.Project.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/discounts")]
     public class DiscountsController : Controller
     {
         private readonly DiscountsRepository _discountsRepository;

@@ -1,4 +1,6 @@
-﻿namespace VisualRiders.PointOfSale.Project.Models;
+﻿using VisualRiders.PointOfSale.Project.Dto;
+
+namespace VisualRiders.PointOfSale.Project.Models;
 
 public enum OrderStatus
 {
@@ -18,19 +20,19 @@ public class Order
     
     public decimal Tip { get; set; }
     
-    // public bool RequiresDelivery { get; set; }
-    
     public string Comment { get; set; }
     
     public OrderStatus Status { get; set; }
     
-    public object? Customer { get; set; }
+    public OrderCustomerDto Customer { get; set; }
     
-    public object? Employee { get; set; }
+    public OrderEmployeeDto Employee { get; set; }
     
-    public object? Discount { get; set; }
-    
-    public object? Delivery { get; set; }
-    
+    public OrderDiscountDto Discount { get; set; }
+
     public List<OrderItem> Items { get; set; }
+    
+    public List<OrderReservationDto> Reservations { get; set; }
+    
+    public List<Transaction> Transactions { get; set; }
 }

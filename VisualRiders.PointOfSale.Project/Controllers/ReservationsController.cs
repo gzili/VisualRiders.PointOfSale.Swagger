@@ -5,7 +5,7 @@ using VisualRiders.PointOfSale.Project.Repositories;
 
 namespace VisualRiders.PointOfSale.Project.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/reservations")]
 [ApiController]
 public class ReservationsController : ControllerBase
 {
