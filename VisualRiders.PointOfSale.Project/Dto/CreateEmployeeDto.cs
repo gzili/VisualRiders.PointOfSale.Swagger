@@ -2,7 +2,7 @@
 
 namespace VisualRiders.PointOfSale.Project.Dto;
 
-public class CreateCustomerDto
+public class CreateEmployeeDto
 {
     [Required]
     public string Name { get; set; }
@@ -14,5 +14,5 @@ public class CreateCustomerDto
     public string Password { get; set; }
     
     [Required]
-    public string PhoneNumber { get; set; }
+    public Guid RoleId { get; set; }
 }

@@ -1,7 +1,9 @@
-﻿namespace VisualRiders.PointOfSale.Project.Dto
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VisualRiders.PointOfSale.Project.Dto;
+
+public class UpdatePurchasableItemCategoryDto
 {
-    public class UpdatePurchasableItemCategoryDto
-    {
-        public Guid CategoryId { get; set; }
-    }
+    [Required]
+    public Guid CategoryId { get; set; }
 }

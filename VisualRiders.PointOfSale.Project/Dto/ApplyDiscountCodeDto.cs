@@ -2,8 +2,8 @@
 
 namespace VisualRiders.PointOfSale.Project.Dto;
 
-public class CreateUpdateProductDto
+public class ApplyDiscountCodeDto
 {
     [Required]
-    public string Name { get; set; }
+    public string Code { get; set; }
 }

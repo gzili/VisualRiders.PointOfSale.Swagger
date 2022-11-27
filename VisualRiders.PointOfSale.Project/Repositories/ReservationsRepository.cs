@@ -31,7 +31,6 @@ public class ReservationsRepository
             ReservationStatus = dto.ReservationStatus,
             Service = service,
             StartTime = dto.StartTime,
-            Tax = dto.TaxId
         };
         _reservations.Add(reservation);
         return reservation;
@@ -50,7 +49,6 @@ public class ReservationsRepository
         reservation.ReservationStatus = dto.ReservationStatus;
         reservation.Service = service;
         reservation.StartTime = dto.StartTime;
-        reservation.Tax = dto.TaxId;
     }
     
     public Reservation? GetById(Guid id)

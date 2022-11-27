@@ -2,7 +2,6 @@
 using Swashbuckle.AspNetCore.Annotations;
 using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
-using VisualRiders.PointOfSale.Project.Repositories;
 
 namespace VisualRiders.PointOfSale.Project.Controllers;
 
@@ -10,31 +9,27 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 [Route("api/orders")]
 public class OrdersController : ControllerBase
 {
-    private readonly OrdersRepository _ordersRepository;
-
-    public OrdersController(OrdersRepository ordersRepository)
-    {
-        _ordersRepository = ordersRepository;
-    }
-
     /// <summary>
     /// Creates an order
     /// </summary>
-    /// <param name="dto">The order to be created</param>
+    /// <param name="payload">The order to be created</param>
     [HttpPost]
     [SwaggerResponse(StatusCodes.Status201Created, "Returns the created order")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failure")]
-    public ActionResult<Order> Create(CreateOrderDto dto)
+    public ActionResult<Order> Create(CreateOrderDto payload)
     {
         throw new NotImplementedException();
     }
-
+    
     /// <summary>
-    /// Retrieves all orders
+    /// Retrieves all orders, filtered by specified criteria
     /// </summary>
+    /// <param name="customerId">If provided, filter orders by customer</param>
+    /// <param name="employeeId">If provided, filters orders by employee</param>
+    /// <param name="status">If provided, filters orders by `OrderStatus`. `0` - created, `1` - returned, `2` - completed, `3` - cancelled</param>
     [HttpGet]
     [SwaggerResponse(StatusCodes.Status200OK, "Returns a list of orders")]
-    public ActionResult<List<OrderListItemDto>> GetAll()
+    public ActionResult<List<OrderListItemDto>> GetAll(Guid? customerId, Guid? employeeId, OrderStatus? status)
     {
         throw new NotImplementedException();
     }
@@ -58,7 +53,21 @@ public class OrdersController : ControllerBase
     [SwaggerResponse(StatusCodes.Status200OK, "Returns the updated order")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failure")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "If there is no order with ID given in the payload")]
-    public ActionResult<Order> Update(UpdateOrderDto dto)
+    public ActionResult<Order> Update(UpdateOrderDto payload)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Attempts to apply a discount code to an order
+    /// </summary>
+    /// <param name="id">The ID of the order to apply the discount to</param>
+    /// <param name="payload">The payload containing the special discount code</param>
+    [HttpPost("{id:guid}/discount")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Returns the order with the discount applied")]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid discount code")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Order with specified ID does not exist")]
+    public ActionResult<Order> ApplyDiscount(Guid id, ApplyDiscountCodeDto payload)
     {
         throw new NotImplementedException();
     }
@@ -66,13 +75,13 @@ public class OrdersController : ControllerBase
     /// <summary>
     /// Adds an item to the order
     /// </summary>
-    /// <param name="id">The ID of the order</param>
-    /// <param name="dto">The item to add</param>
-    [HttpPost("{id:guid}/items")]
+    /// <param name="orderId">The ID of the order</param>
+    /// <param name="payload">The item to add</param>
+    [HttpPost("{orderId:guid}/items")]
     [SwaggerResponse(StatusCodes.Status200OK, "Returns the updated order")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failure")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Order with specified ID could not be found")]
-    public void AddItem(Guid id, CreateOrderItemDto dto)
+    public void AddItem(Guid orderId, CreateOrderItemDto payload)
     {
         throw new NotImplementedException();
     }
@@ -80,13 +89,13 @@ public class OrdersController : ControllerBase
     /// <summary>
     /// Updates an item in the order
     /// </summary>
-    /// <param name="id">The ID of the order</param>
-    /// <param name="dto">The item to update</param>
-    [HttpPut("{id:guid}/items")]
+    /// <param name="orderId">The ID of the order</param>
+    /// <param name="payload">The item to update</param>
+    [HttpPut("{orderId:guid}/items")]
     [SwaggerResponse(StatusCodes.Status200OK, "Returns the updated order")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Validation failure")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Either the order with specified ID does not exist or the specified item does not exist in the order")]
-    public void UpdateItem(Guid id, CreateOrderItemDto dto)
+    public void UpdateItem(Guid orderId, CreateOrderItemDto payload)
     {
         throw new NotImplementedException();
     }

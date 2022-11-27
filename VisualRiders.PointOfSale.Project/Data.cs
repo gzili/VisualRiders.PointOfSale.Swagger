@@ -98,7 +98,6 @@ public class Data
                 Name = "Service 1",
                 Description = "Description 1",
                 Price = 1.0M,
-                Type = ServiceType.Type2,
                 Status = ServiceStatus.Deleted,
                 DiscountId = Guid.NewGuid(),
                 BranchId = Guid.NewGuid()
@@ -109,7 +108,6 @@ public class Data
                 Name = "Service 2",
                 Description = "Description 2",
                 Price = 2.0M,
-                Type = ServiceType.Type2,
                 Status = ServiceStatus.Active,
                 DiscountId = Guid.NewGuid(),
                 BranchId = Guid.NewGuid()

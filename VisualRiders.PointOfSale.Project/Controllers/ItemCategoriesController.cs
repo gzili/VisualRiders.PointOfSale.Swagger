@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
@@ -77,6 +78,40 @@ namespace VisualRiders.PointOfSale.Project.Controllers
             _itemCategoriesRepository.DeleteById(itemCategory);
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Applies the specified category to items listed in the payload
+        /// </summary>
+        /// <remarks>
+        /// Does not affect items that already have the specified category applied.
+        /// </remarks>
+        /// <param name="id">The ID of the category</param>
+        /// <param name="payload">The request payload</param>
+        [HttpPost("{id:guid}/apply")]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Category applied successfully")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "If any of the IDs in the payload are invalid")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Category with specified ID does not exist")]
+        public IActionResult ApplyTo(Guid id, ApplyItemCategoryDto payload)
+        {
+            throw new NotImplementedException();
+        }
+        
+        /// <summary>
+        /// Removes the specified category from the items listed in the payload
+        /// </summary>
+        /// <remarks>
+        /// Does not affect items that already have the specified category applied.
+        /// </remarks>
+        /// <param name="id">The ID of the category</param>
+        /// <param name="payload">The request payload</param>
+        [HttpDelete("{id:guid}/apply")]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Category applied successfully")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "If any of the IDs in the payload are invalid")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Category with specified ID does not exist")]
+        public IActionResult RemoveFrom(Guid id, ApplyItemCategoryDto payload)
+        {
+            throw new NotImplementedException();
         }
     }
 }

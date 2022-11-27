@@ -1,4 +1,5 @@
 using VisualRiders.PointOfSale.Project.Dto;
+using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 
 namespace VisualRiders.PointOfSale.Project.Repositories;
@@ -15,7 +16,7 @@ public class CompaniesRepository
             Name = dto.Name,
             ActiveSince = dto.ActiveSince,
             BillingDetails = dto.BillingDetails,
-            Status = dto.CompanyStatus,
+            Status = CompanyStatus.Active,
             LegalCompanyName = dto.LegalCompanyName
         };
         
@@ -39,7 +40,6 @@ public class CompaniesRepository
         company.Name = dto.Name;
         company.ActiveSince = dto.ActiveSince;
         company.BillingDetails = dto.BillingDetails;
-        company.Status = dto.CompanyStatus;
         company.LegalCompanyName = dto.LegalCompanyName;
     }
 

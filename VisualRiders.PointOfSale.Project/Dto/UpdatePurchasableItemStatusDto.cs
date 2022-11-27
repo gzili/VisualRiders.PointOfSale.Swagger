@@ -1,9 +1,10 @@
-﻿using VisualRiders.PointOfSale.Project.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using VisualRiders.PointOfSale.Project.Enums;
 
-namespace VisualRiders.PointOfSale.Project.Dto
+namespace VisualRiders.PointOfSale.Project.Dto;
+
+public class UpdatePurchasableItemStatusDto
 {
-    public class UpdatePurchasableItemStatusDto
-    {
-        public PurchasableItemStatus Status { get; set; }  
-    }
+    [Required]
+    public PurchasableItemStatus Status { get; set; }  
 }

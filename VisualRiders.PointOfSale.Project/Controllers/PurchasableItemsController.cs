@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
@@ -26,8 +27,16 @@ public class PurchasableItemsController : ControllerBase
         return CreatedAtAction("GetById", new { id = item.Id }, item);
     }
 
+    /// <summary>
+    /// Retrieves all purchasable items
+    /// </summary>
+    /// <remarks>
+    /// Accepts optional filters as query parameters
+    /// </remarks>
+    /// <param name="itemCategoryId">The ID of the category to filter by</param>
     [HttpGet]
-    public List<PurchasableItem> GetAll()
+    [SwaggerResponse(StatusCodes.Status200OK, "Returns a list of purchasable items")]
+    public List<PurchasableItem> GetAll(Guid? itemCategoryId)
     {
         return _purchasableItemsRepository.GetAll();
     }

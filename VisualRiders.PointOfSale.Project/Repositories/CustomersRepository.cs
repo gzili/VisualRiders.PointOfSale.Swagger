@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml;
-using VisualRiders.PointOfSale.Project.DTOs;
+using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Enums;
 using VisualRiders.PointOfSale.Project.Models;
 

@@ -1,5 +1,3 @@
-using VisualRiders.PointOfSale.Project.Enums;
-
 namespace VisualRiders.PointOfSale.Project.Dto;
 
 public class CreateUpdateCompanyDto
@@ -11,6 +9,4 @@ public class CreateUpdateCompanyDto
     public string LegalCompanyName { get; set; }
     
     public string BillingDetails { get; set; }
-    
-    public CompanyStatus CompanyStatus { get; set; }
 }

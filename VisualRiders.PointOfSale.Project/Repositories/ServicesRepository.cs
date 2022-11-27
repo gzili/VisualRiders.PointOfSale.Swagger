@@ -14,7 +14,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Service 1",
                 Description = "Description 1",
                 Price = 1.0M,
-                Type = ServiceType.Type2,
                 Status = ServiceStatus.Deleted,
                 DiscountId = Guid.NewGuid(),
                 BranchId = Guid.NewGuid()
@@ -25,7 +24,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Name = "Service 2",
                 Description = "Description 2",
                 Price = 2.0M,
-                Type = ServiceType.Type2,
                 Status = ServiceStatus.Active,
                 DiscountId = Guid.NewGuid(),
                 BranchId = Guid.NewGuid()
@@ -40,7 +38,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Price = dto.Price,
                 Name = dto.Name,
                 Description = dto.Description,
-                Type = dto.Type,
                 Status = ServiceStatus.Active,
                 DiscountId= Guid.Empty,
                 BranchId = Guid.Empty
@@ -66,7 +63,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
             service.Price = dto.Price;
             service.Name = dto.Name;
             service.Description = dto.Description;
-            service.Type = dto.Type;
         }
 
         public void ChangeStatus(Service service, UpdateServiceStatusDto dto) => service.Status = dto.Status;

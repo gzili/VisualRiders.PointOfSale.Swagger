@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Any;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -8,12 +9,16 @@ namespace VisualRiders.PointOfSale.Project.Dto;
 [SwaggerSchemaFilter(typeof(CreateUpdateShiftDtoSchemaFilter))]
 public class CreateUpdateShiftDto
 {
+    [Required]
     public Guid EmployeeId { get; set; }
     
+    [Required]
     public Guid BranchId { get; set; }
     
+    [Required]
     public DateTime Begin { get; set; }
     
+    [Required]
     public DateTime End { get; set; }
 }
 
