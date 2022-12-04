@@ -8,6 +8,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/roles")]
+[Produces("application/json")]
 public class RolesController : ControllerBase
 {
     private readonly RolesRepository _rolesRepository;

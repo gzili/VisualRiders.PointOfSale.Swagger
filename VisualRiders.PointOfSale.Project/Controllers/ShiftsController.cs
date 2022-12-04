@@ -7,6 +7,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/shifts")]
+[Produces("application/json")]
 public class ShiftsController : ControllerBase
 {
     /// <summary>

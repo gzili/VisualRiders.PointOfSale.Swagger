@@ -8,6 +8,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/permissions")]
+[Produces("application/json")]
 public class PermissionsController : ControllerBase
 {
     private readonly PermissionsRepository _permissionsRepository;

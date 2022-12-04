@@ -8,6 +8,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/employees")]
+[Produces("application/json")]
 public class EmployeesController : Controller
 {
     private readonly EmployeesRepository _employeesRepository;
@@ -66,7 +67,7 @@ public class EmployeesController : Controller
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<EmployeeDto> UpdateById(Guid id, Employee newEmployee)
+    public ActionResult<EmployeeDto> UpdateById(Guid id, Employee payload)
     {
         var employee = _employeesRepository.GetById(id);
 
@@ -74,7 +75,7 @@ public class EmployeesController : Controller
         {
             return NotFound();
         }
-        newEmployee.Id = id;
+        payload.Id = id;
         _employeesRepository.Update(employee);
         return new EmployeeDto
         {
@@ -91,7 +92,7 @@ public class EmployeesController : Controller
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult ChangeEmployeeRole(Guid id, UpdateEmployeeRoleDto roleDto)
+    public ActionResult ChangeEmployeeRole(Guid id, UpdateEmployeeRoleDto payload)
     {
         var employee = _employeesRepository.GetById(id);
 
@@ -100,7 +101,7 @@ public class EmployeesController : Controller
             return NotFound();
         }
 
-        _employeesRepository.ChangeRole(employee, roleDto);
+        _employeesRepository.ChangeRole(employee, payload);
 
         return Ok();
     }

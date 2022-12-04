@@ -9,6 +9,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/purchasable-items")]
+[Produces("application/json")]
 public class PurchasableItemsController : ControllerBase
 {
     private readonly PurchasableItemsRepository _purchasableItemsRepository;
@@ -42,37 +43,21 @@ public class PurchasableItemsController : ControllerBase
     }
 
     [HttpGet("active")]
-    [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<List<PurchasableItem>> GetAllActive()
     {
-        var items = _purchasableItemsRepository.GetAllActive();
-
-        if (items == null)
-        {
-            return NotFound();
-        }
-
-        return items;
+        return _purchasableItemsRepository.GetAllActive();
     }
 
     [HttpGet("deleted")]
-    [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<List<PurchasableItem>> GetAllDeleted()
     {
-        var items = _purchasableItemsRepository.GetAllDeleted();
-
-        if (items == null)
-        {
-            return NotFound();
-        }
-
-        return items;
+        return _purchasableItemsRepository.GetAllDeleted();
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<PurchasableItem> GetById(Guid id)
     {
@@ -87,7 +72,7 @@ public class PurchasableItemsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<PurchasableItem> UpdateById(Guid id, CreateUpdatePurchasableItemDto dto)
     {
@@ -103,7 +88,7 @@ public class PurchasableItemsController : ControllerBase
     }
 
     [HttpPut("{id:guid}/category")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<PurchasableItem> ChangeCategory(Guid id, UpdatePurchasableItemCategoryDto categoryDto)
     {
@@ -120,7 +105,7 @@ public class PurchasableItemsController : ControllerBase
     }
 
     [HttpPut("{id:guid}/status")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public ActionResult<PurchasableItem> ChangeStatus(Guid id, UpdatePurchasableItemStatusDto dto)
@@ -138,7 +123,7 @@ public class PurchasableItemsController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteById(Guid id)
     {

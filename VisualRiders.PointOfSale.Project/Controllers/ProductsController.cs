@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using VisualRiders.PointOfSale.Project.Dto;
 using VisualRiders.PointOfSale.Project.Models;
 using VisualRiders.PointOfSale.Project.Repositories;
@@ -7,6 +8,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/products")]
+[Produces("application/json")]
 public class ProductsController : ControllerBase
 {
     private readonly ProductsRepository _productsRepository;
@@ -18,9 +20,9 @@ public class ProductsController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public ActionResult<Product> Create(CreateUpdateProductDto dto)
+    public ActionResult<Product> Create(CreateUpdateProductDto payload)
     {
-        var product = _productsRepository.Create(dto);
+        var product = _productsRepository.Create(payload);
         
         return CreatedAtAction("GetById", new { id = product.Id }, product);
     }
@@ -32,7 +34,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Product> GetById(Guid id)
     {
@@ -47,9 +49,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Product> UpdateById(Guid id, CreateUpdateProductDto dto)
+    public ActionResult<Product> UpdateById(Guid id, CreateUpdateProductDto payload)
     {
         var product = _productsRepository.GetById(id);
 
@@ -58,13 +60,13 @@ public class ProductsController : ControllerBase
             return NotFound();
         }
         
-        _productsRepository.Update(product, dto);
+        _productsRepository.Update(product, payload);
 
         return product;
     }
 
     [HttpDelete("{id:guid}")]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteById(Guid id)
     {

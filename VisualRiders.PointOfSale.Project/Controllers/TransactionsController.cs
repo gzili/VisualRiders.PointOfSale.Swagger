@@ -6,6 +6,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/transactions")]
+[Produces("application/json")]
 public class TransactionsController : ControllerBase
 {
     /// <summary>

@@ -7,6 +7,7 @@ namespace VisualRiders.PointOfSale.Project.Controllers;
 
 [ApiController]
 [Route("api/orders")]
+[Produces("application/json")]
 public class OrdersController : ControllerBase
 {
     /// <summary>
@@ -136,6 +137,20 @@ public class OrdersController : ControllerBase
     [SwaggerResponse(StatusCodes.Status200OK, "Returns the updated order")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "Either the order with specified ID does not exist or the service reservation with the specified ID does not exist in the order")]
     public void RemoveService(Guid orderId, Guid serviceReservationId)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Updates the tips amount in the order
+    /// </summary>
+    /// <param name="id">The ID of the order</param>
+    /// <param name="payload"></param>
+    [HttpPut("orders/{id:guid}/tips")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Returns the updated order")]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid payload")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "The specified order does not exist")]
+    public ActionResult<Order> UpdateTips(Guid id, UpdateOrderTipsDto payload)
     {
         throw new NotImplementedException();
     }

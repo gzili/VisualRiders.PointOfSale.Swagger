@@ -14,7 +14,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Price = 1.0M,
                 Name = "Purchasable Item 1",
                 Description = "Description 1",
-                Duration = 0,
                 Status = PurchasableItemStatus.Deleted,
                 ItemCategoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()
@@ -25,7 +24,6 @@ namespace VisualRiders.PointOfSale.Project.Repositories
                 Price = 2.0M,
                 Name = "Purchasable Item 2",
                 Description = "Description 2",
-                Duration = 0,
                 Status = PurchasableItemStatus.Active,
                 ItemCategoryId =  Guid.NewGuid(),
                 DiscountId = Guid.NewGuid()

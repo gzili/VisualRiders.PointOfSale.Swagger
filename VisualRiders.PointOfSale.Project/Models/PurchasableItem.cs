@@ -1,7 +1,9 @@
-﻿using VisualRiders.PointOfSale.Project.Enums;
+﻿using Swashbuckle.AspNetCore.Annotations;
+using VisualRiders.PointOfSale.Project.Enums;
 
 namespace VisualRiders.PointOfSale.Project.Models;
 
+[SwaggerSchema(Description = "An item that can be purchased directly by a customer")]
 public class PurchasableItem
 {
     public Guid Id { get; set; }
@@ -11,9 +13,7 @@ public class PurchasableItem
     public string Name { get; set; }
 
     public string Description { get; set; }
-
-    public int Duration { get; set; }
-
+    
     public PurchasableItemStatus Status { get; set; }
 
     public Guid ItemCategoryId { get; set; }
